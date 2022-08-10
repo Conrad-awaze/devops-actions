@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/awazevr/devops-actions/compare/v1.0.3...v1.0.4) (2022-08-10)
+
+
+### Bug Fixes
+
+* infra-copy-action missing shell ([310359c](https://github.com/awazevr/devops-actions/commit/310359c30f3b41eb1a0e5bc2594b1aee47cb5a40))
+
 ## [1.0.3](https://github.com/awazevr/devops-actions/compare/v1.0.2...v1.0.3) (2022-08-10)
 
 
