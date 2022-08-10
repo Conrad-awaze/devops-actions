@@ -16,19 +16,19 @@ outputs:
 
 runs: 
   using: "composite"
-  defaults:
-    run:
-      shell: bash    
+  
   steps: 
     - name: Starting Setup 
       run: echo "Starting composite action"
 
-      - name: Include directory 01 - production
-        run: cp -r '01 - production/.' ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}
+    - name: Include directory 01 - production
+      shell: bash
+      run: cp -r '01 - production/.' ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}
            
-      - name: Include directory 00 - development
-        continue-on-error: true
-        run: |
+    - name: Include directory 00 - development
+      continue-on-error: true      
+      shell: bash
+      run: |
               if [ -d '00 - development' ]
               then
                 cp -r '00 - development/.' ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}
@@ -36,9 +36,11 @@ runs:
                 echo "Directory does not exist"
               fi
 
-      - name: install tree
-        run: sudo apt-get install tree -y
+    - name: install tree
+      shell: bash
+      run: sudo apt-get install tree -y
 
-      - name: run tree
-        run: tree  ${{inputs.environment}}/ --dirsfirst
+    - name: run tree
+      shell: bash
+      run: tree  ${{inputs.environment}}/ --dirsfirst
 

@@ -30,14 +30,12 @@ outputs:
     value: "Done"
 
 runs: 
-  using: "composite"
-  defaults:
-    run:
-      shell: bash         # Default shell
+  using: "composite" 
 
   steps: 
       
-    - name: starting setup 
+    - name: Starting Action
+      shell: bash
       run: echo "Starting composite action"
     
     # # needs chmod +x for scripts
@@ -53,8 +51,10 @@ runs:
         role-to-assume: arn:aws:iam::${{ inputs.aws-account-id }}:role/github
 
     - run: aws sts get-caller-identity
+      shell: bash
 
     - name: Setup infra modules deploy key
+      shell: bash
       run: |
         mkdir ~/.ssh
         echo "${{ inputs.ssh-key-shared-modules }}" > ~/.ssh/id_rsa
