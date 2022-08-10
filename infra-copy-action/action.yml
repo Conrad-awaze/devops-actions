@@ -18,7 +18,8 @@ runs:
   using: "composite"
   
   steps: 
-    - name: Starting Setup 
+    - name: Starting Action 
+      shell: bash
       run: echo "Starting composite action"
 
     - name: Include directory 01 - production
