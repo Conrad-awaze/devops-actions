@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/awazevr/devops-actions/compare/v1.0.2...v1.0.3) (2022-08-10)
+
+
+### Bug Fixes
+
+* set shell attribute to actions ([7cfec9a](https://github.com/awazevr/devops-actions/commit/7cfec9ac127e5dd40a1bcf4d7f2b3a9d2959d4c1))
+
 ## [1.0.2](https://github.com/awazevr/devops-actions/compare/v1.0.1...v1.0.2) (2022-08-10)
 
 
