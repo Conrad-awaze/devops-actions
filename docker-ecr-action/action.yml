@@ -1,0 +1,97 @@
+name: Docker Build and Push
+description:  Composite action for setting up Docker Buildx, Docker meta, ECR login and Build Push 
+
+
+inputs:
+  aws-region: 
+    description:
+    required: true
+  aws-account-id:
+    description:
+    required: true
+  application-name:
+    description: 
+    required: true
+  # gh-pat: 
+  #   description:
+  #   required: true
+
+  path:
+    description: 
+    required: false
+    default: './'
+  dockerfile-path:
+    description: 
+    required: false
+    default: .
+  mutable-ecr:
+    description: 
+    required: true
+    default: true
+
+outputs:
+  script:
+    description: 
+    value: "Done"
+
+
+runs: 
+  using: "composite"
+  steps: 
+      
+    - name: Starting Setup 
+      shell: bash
+      run: echo "Starting composite action"
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      with:
+        driver-opts: image=moby/buildkit:buildx-stable-1
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@master
+      with:
+        aws-region: ${{ inputs.aws-region }}
+        role-to-assume: arn:aws:iam::${{ inputs.aws-account-id }}:role/github
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Docker meta
+      if: ${{ inputs.mutable-ecr != true }} 
+      id: docker-meta-non-mutable
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.application-name }}
+        # flavor: latest=true
+        tags: type=sha
+
+    - name: Build and push
+      if: ${{ inputs.mutable-ecr != true }} 
+      uses: docker/build-push-action@v2
+      with:
+        context: ${{ inputs.path }}
+        file: ${{ inputs.dockerfile-path }}
+        push: true
+        tags: ${{ steps.docker-meta-non-mutable.outputs.tags }}
+
+
+    - name: Docker meta
+      if: ${{ inputs.mutable-ecr == true }} 
+      id: docker-meta-mutable
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.application-name }}
+        flavor: latest=true
+
+    - name: Build and push
+      if: ${{ inputs.mutable-ecr == true }} 
+      uses: docker/build-push-action@v2
+      with:
+        context: ${{ inputs.path }}
+        file: ${{ inputs.dockerfile-path }}
+        push: true
+        tags: ${{ steps.docker-meta-mutable.outputs.tags }}
+
+
