@@ -1,0 +1,86 @@
+name: Security Analysis
+description:  Composite action for security analysis of Terraform/Terragrunt 
+
+
+inputs:
+  directory: 
+    description:
+    required: false
+  # aws-account-id:
+  #   description:
+  #   required: true
+  # ssh-key-shared-modules:
+  #   description: 
+  #   required: true
+  gh-pat: 
+    description:
+    required: true
+  tflint_version:
+    description: 
+    required: false
+    default: latest
+  infrastructure: 
+    reguired: false
+    default: false
+  # terraform-version:
+  #   description: 
+  #   required: false
+  #   default: latest
+  # terragrunt-version: 
+  #   description: 
+  #   required: false
+  #   default: latest
+
+outputs:
+  script:
+    description: 
+    value: "Done"
+
+
+runs: 
+  using: "composite"
+  steps: 
+      
+    - name: Starting Setup 
+      shell: bash
+      run: echo "Starting composite action"
+
+    - uses: terraform-linters/setup-tflint@v1
+      if: ${{ inputs.infrastructure == false }}
+      name: Setup TFLint
+      with:
+        tflint_version: ${{ inputs.tflint_version }}
+
+    - name: Terraform lint
+      if: ${{ inputs.infrastructure == false }}
+      shell: bash
+      run: |
+        tflint --init
+        tflint -f compact
+
+    - name: tfsec PR commenter
+      if: ${{ inputs.infrastructure == false }}
+      uses: aquasecurity/tfsec-pr-commenter-action@main
+      with:
+        github_token: ${{ inputs.gh-pat }}
+
+
+    # # checkov 
+    - name: Run Checkov action
+      if: ${{ inputs.infrastructure != false }}
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: ${{ inputs.directory }}
+  #       file: example/tfplan.json # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
+  #       check: CKV_AWS_1 # optional: run only a specific check_id. can be comma separated list
+  #       skip_check: CKV_AWS_2 # optional: skip a specific check_id. can be comma separated list
+        quiet: true # optional: display only failed checks
+        soft_fail: true # optional: do not return an error code if there are failed checks
+  #       framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+  #       output_format: sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+  #       # download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
+  #       log_level: DEBUG # optional: set log level. Default WARNING
+  #       config_file: path/this_file
+  #       baseline: cloudformation/.checkov.baseline # optional: Path to a generated baseline file. Will only report results not in the baseline.
+  #       container_user: 1000 # optional: Define what UID and / or what GID to run the container under to prevent permission issues
