@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/awazevr/devops-actions/compare/v1.0.0...v1.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* added aws-terragrunt-setup and security-analysis ([54b017c](https://github.com/awazevr/devops-actions/commit/54b017c62410da1f38f9e303dcac03a826ac0109))
+
 # 1.0.0 (2022-08-10)
 
 
