@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/awazevr/devops-actions/compare/v1.0.4...v1.0.5) (2022-08-11)
+
+
+### Bug Fixes
+
+* added default to security action input ([1d53407](https://github.com/awazevr/devops-actions/commit/1d5340754a6fe2c5a90b21ab041936c300afb4a5))
+
 ## [1.0.4](https://github.com/awazevr/devops-actions/compare/v1.0.3...v1.0.4) (2022-08-10)
 
 
