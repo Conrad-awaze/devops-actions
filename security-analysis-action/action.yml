@@ -6,6 +6,7 @@ inputs:
   directory: 
     description:
     required: false
+    default: .
   # aws-account-id:
   #   description:
   #   required: true
