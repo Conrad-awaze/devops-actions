@@ -87,6 +87,7 @@ runs:
     - name: Post Infracost comment
       shell: bash
       run: |
+          ls /tmp/
           infracost comment github --path=/tmp/infracost.json \
                                     --repo=$GITHUB_REPOSITORY \
                                     --github-token=${{inputs.github-token}} \
