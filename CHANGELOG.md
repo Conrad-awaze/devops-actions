@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/awazevr/devops-actions/compare/v1.0.11...v1.0.12) (2022-08-17)
+
+
+### Bug Fixes
+
+* changed infracost step ([fc09df4](https://github.com/awazevr/devops-actions/commit/fc09df493bcccb4d30dbeb79f4db5007d5966e8a))
+
 ## [1.0.11](https://github.com/awazevr/devops-actions/compare/v1.0.10...v1.0.11) (2022-08-17)
 
 
