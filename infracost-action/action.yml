@@ -123,5 +123,5 @@ runs:
       uses: Attest/annotations-action@v1.0.7
       with:
         token: ${{ inputs.github-token }}
-        input: '/tmp/infracost-base.json'
+        path: '/tmp/infracost-base.json'
         title: 'Annotate Files'
