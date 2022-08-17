@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/awazevr/devops-actions/compare/v1.0.12...v1.0.13) (2022-08-17)
+
+
+### Bug Fixes
+
+* ls out the path to infracost.json ([68c184d](https://github.com/awazevr/devops-actions/commit/68c184d0d8a60fe45e6e7d3a0e58925a8f253b58))
+
 ## [1.0.12](https://github.com/awazevr/devops-actions/compare/v1.0.11...v1.0.12) (2022-08-17)
 
 
