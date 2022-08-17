@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/awazevr/devops-actions/compare/v1.0.6...v1.0.7) (2022-08-17)
+
+
+### Bug Fixes
+
+* corrected yaml syntax for infracost action ([78d1fb3](https://github.com/awazevr/devops-actions/commit/78d1fb31f1856823bdb0cb25f29d270152f6358a))
+
 ## [1.0.6](https://github.com/awazevr/devops-actions/compare/v1.0.5...v1.0.6) (2022-08-17)
 
 
