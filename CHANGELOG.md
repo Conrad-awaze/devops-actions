@@ -1,3 +1,10 @@
+## [1.0.17](https://github.com/awazevr/devops-actions/compare/v1.0.16...v1.0.17) (2022-08-17)
+
+
+### Bug Fixes
+
+* added new annotation action to infracost ([f49becd](https://github.com/awazevr/devops-actions/commit/f49becd7261055df9eac0232ecf69e42667d91e7))
+
 ## [1.0.16](https://github.com/awazevr/devops-actions/compare/v1.0.15...v1.0.16) (2022-08-17)
 
 
