@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/awazevr/devops-actions/compare/v1.0.15...v1.0.16) (2022-08-17)
+
+
+### Bug Fixes
+
+* updated infracost workflow and added infracost-usage.yml ([e919fe3](https://github.com/awazevr/devops-actions/commit/e919fe34bcbebeef69c3d92b2e1912e769b4e59d))
+
 ## [1.0.15](https://github.com/awazevr/devops-actions/compare/v1.0.14...v1.0.15) (2022-08-17)
 
 
