@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/awazevr/devops-actions/compare/v1.0.9...v1.0.10) (2022-08-17)
+
+
+### Bug Fixes
+
+* corrected wrong input documentation ([3e54aa0](https://github.com/awazevr/devops-actions/commit/3e54aa02a2bf6eafc7a43486d6337b2069b5cef8))
+
 ## [1.0.9](https://github.com/awazevr/devops-actions/compare/v1.0.8...v1.0.9) (2022-08-17)
 
 
