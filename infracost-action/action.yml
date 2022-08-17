@@ -40,6 +40,7 @@ runs:
       with:
         ref: '${{ github.event.pull_request.head.ref }}'
 
+
     - name: Include directory 01 - production
       shell: bash
       run: cp -r '01 - production/.' ${{inputs.directory}}
@@ -57,14 +58,11 @@ runs:
       with:
         api-key: ${{ inputs.infracost_creds }}
 
-
-
        # Generate Infracost JSON file as the baseline.
     - name: Generate Infracost cost estimate baseline
       shell: bash
       run: |
         infracost breakdown --path="${{inputs.directory}}" \
-                            --show-skipped \
                             --format=json \
                             --usage-file infracost-usage.yml \
                             --out-file=/tmp/infracost-base.json
@@ -79,12 +77,14 @@ runs:
     # - name: Checkout PR branch
     #   uses: actions/checkout@v2
 
-  #  - name: Generate Infracost diff
-  #    run: |
-  #      infracost diff --path=${TF_ROOT} \
-  #                     --format=json \
-  #                     --compare-to=/tmp/infracost-base.json \
-  #                     --out-file=/tmp/infracost.json
+    - name: Generate Infracost diff
+      shell: bash
+      run: |
+        infracost diff --path=${{inputs.directory}} \
+                        --format=json \
+                        --usage-file infracost-usage.yml \
+                        --compare-to=/tmp/infracost-base.json \
+                        --out-file=/tmp/infracost.json
 
     - name: Post Infracost comment
       shell: bash
@@ -94,7 +94,7 @@ runs:
                                     --repo=$GITHUB_REPOSITORY \
                                     --github-token=${{inputs.github-token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
-                                    --behavior=update
+                                    --behavior=delete-and-new
 
 
     # - name: Annotate
