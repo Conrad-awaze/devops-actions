@@ -1,3 +1,10 @@
+## [1.0.19](https://github.com/awazevr/devops-actions/compare/v1.0.18...v1.0.19) (2022-08-17)
+
+
+### Bug Fixes
+
+* re-adding annotate action ([dfee53f](https://github.com/awazevr/devops-actions/commit/dfee53fbed4be6eb2dbee08282102ffcf3ec4355))
+
 ## [1.0.18](https://github.com/awazevr/devops-actions/compare/v1.0.17...v1.0.18) (2022-08-17)
 
 
