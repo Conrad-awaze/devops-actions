@@ -1,0 +1,119 @@
+name: Infracost Analysis
+description:  Composite action for infracost analysis of Terraform/Terragrunt 
+
+
+inputs:
+  directory: 
+    description:
+    required: false
+    default: dev/eu-west-2/dev
+  aws-region:
+    description:
+    required: true
+  aws-account-id:
+    description:
+    required: true
+  ssh-key-shared-modules:
+    description: 
+    required: true
+  infracost_creds: 
+    description:
+    required: true
+  github-token:
+    description: 
+    required: true
+
+
+
+outputs:
+  script:
+    description: 
+    value: "Done"
+
+
+runs: 
+  using: "composite"
+
+    steps:
+      - name: Checkout head branch
+        uses: actions/checkout@v2
+        with:
+          ref: '${{ github.event.pull_request.head.ref }}'
+
+      - name: Include directory 01 - production
+        shell: bash
+        run: cp -r '01 - production/.' ${{inputs.directory}}
+
+      - name: Setting up AWS and Terraform
+        uses: awazevr/devops-actions/aws-terragrunt-setup-action@main
+        with:
+          aws-region: ${{ inputs.aws-region }}
+          aws-account-id: ${{ inputs.aws-account-id }} 
+          ssh-key-shared-modules: ${{ inputs.ssh-key-shared-modules }}
+          gh-pat: ${{ inputs.github-token}}
+      
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v2
+        with:
+          api-key: ${{ inputs.infracost_creds }}
+
+      - name: Generate Infracost JSON
+        working-directory: ${{inputs.directory}}
+        shell: bash
+        run: | 
+              terragrunt run-all --terragrunt-ignore-external-dependencies plan -out tfplan.binary
+
+              plans=($(find . -name tfplan.binary))
+
+              planjsons=()
+              for plan in "${plans[@]}"; do
+                dir=$(dirname $plan)
+                dir=$(echo "$dir" | sed 's/\(.*\)\/\.terragrunt-cache\/.*/\1/')
+                echo "Running terragrunt show for $(basename $plan) for $dir"
+                terragrunt show -json $(basename $plan) --terragrunt-working-dir=$dir --terragrunt-no-auto-init > $dir/plan.json
+                planjsons=(${planjsons[@]} "$dir/plan.json")
+              done
+
+              # Sort the plan JSONs so we get consistent project ordering in the config file
+              IFS=$'\n' planjsons=($(sort <<<"${planjsons[*]}"))
+
+              # Generate Infracost config file
+              echo -e "version: 0.1\n\nprojects:\n" > infracost-generated.yml
+              for planjson in "${planjsons[@]}"; do
+                echo -e "  - path: $planjson" >> infracost-generated.yml
+              done
+
+              infracost breakdown --config-file=infracost-generated.yml \
+                                  --format=json \
+                                  --out-file=/tmp/infracost-base.json
+
+              # cleanup
+              rm infracost-generated.yml
+              rm $plans
+              rm $planjsons
+
+
+      # - name: Generate Infracost cost estimate baseline
+      #   run: |
+      #     infracost breakdown --path=${TF_ROOT} \
+      #                         --format=json \
+      #                         --out-file=/tmp/infracost-base.json
+
+      # - name: Checkout PR branch
+      #   uses: actions/checkout@v2
+
+    #  - name: Generate Infracost diff
+    #    run: |
+    #      infracost diff --path=${TF_ROOT} \
+    #                     --format=json \
+    #                     --compare-to=/tmp/infracost-base.json \
+    #                     --out-file=/tmp/infracost.json
+
+      - name: Post Infracost comment
+        shell: bash
+        run: |
+            infracost comment github --path=/tmp/infracost-base.json \
+                                      --repo=$GITHUB_REPOSITORY \
+                                      --github-token=${{inputs.github-token}} \
+                                      --pull-request=${{github.event.pull_request.number}} \
+                                      --behavior=update
