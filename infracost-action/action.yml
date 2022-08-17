@@ -96,9 +96,9 @@ runs:
                                     --pull-request=${{github.event.pull_request.number}} \
                                     --behavior=update
 
-    # - name: Annotate
-    #   uses: yuzutech/annotations-action@v0.4.0
-    #   with:
-    #     repo-token: "${{inputs.github-token}}"
-    #     title: 'Infracost'
-    #     input: '/tmp/infracost.json'
+    - name: Annotate
+      uses: yuzutech/annotations-action@v0.4.0
+      with:
+        repo-token: "${{inputs.github-token}}"
+        title: 'Infracost'
+        input: '/tmp/infracost.json'
