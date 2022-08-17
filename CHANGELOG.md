@@ -1,3 +1,10 @@
+## [1.0.21](https://github.com/awazevr/devops-actions/compare/v1.0.20...v1.0.21) (2022-08-17)
+
+
+### Bug Fixes
+
+* reverted old action step for copying ([ca50910](https://github.com/awazevr/devops-actions/commit/ca509106cce40cc3f9e74a2a01845a07ff685a0c))
+
 ## [1.0.20](https://github.com/awazevr/devops-actions/compare/v1.0.19...v1.0.20) (2022-08-17)
 
 
