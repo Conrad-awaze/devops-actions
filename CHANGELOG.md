@@ -1,3 +1,10 @@
+## [1.0.20](https://github.com/awazevr/devops-actions/compare/v1.0.19...v1.0.20) (2022-08-17)
+
+
+### Bug Fixes
+
+* updated workflow ([629b2df](https://github.com/awazevr/devops-actions/commit/629b2dfd7ddd40cf9db56f188d7749cfcb856609))
+
 ## [1.0.19](https://github.com/awazevr/devops-actions/compare/v1.0.18...v1.0.19) (2022-08-17)
 
 
