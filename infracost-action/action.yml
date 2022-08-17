@@ -57,40 +57,15 @@ runs:
       with:
         api-key: ${{ inputs.infracost_creds }}
 
-    - name: Generate Infracost JSON
-      working-directory: ${{inputs.directory}}
+
+
+       # Generate Infracost JSON file as the baseline.
+    - name: Generate Infracost cost estimate baseline
       shell: bash
-      run: | 
-            terragrunt run-all --terragrunt-ignore-external-dependencies plan -out tfplan.binary
-
-            plans=($(find . -name tfplan.binary))
-
-            planjsons=()
-            for plan in "${plans[@]}"; do
-              dir=$(dirname $plan)
-              dir=$(echo "$dir" | sed 's/\(.*\)\/\.terragrunt-cache\/.*/\1/')
-              echo "Running terragrunt show for $(basename $plan) for $dir"
-              terragrunt show -json $(basename $plan) --terragrunt-working-dir=$dir --terragrunt-no-auto-init > $dir/plan.json
-              planjsons=(${planjsons[@]} "$dir/plan.json")
-            done
-
-            # Sort the plan JSONs so we get consistent project ordering in the config file
-            IFS=$'\n' planjsons=($(sort <<<"${planjsons[*]}"))
-
-            # Generate Infracost config file
-            echo -e "version: 0.1\n\nprojects:\n" > infracost-generated.yml
-            for planjson in "${planjsons[@]}"; do
-              echo -e "  - path: $planjson" >> infracost-generated.yml
-            done
-
-            infracost breakdown --config-file=infracost-generated.yml \
-                                --format=json \
-                                --out-file=/tmp/infracost-base.json
-
-            # cleanup
-            rm infracost-generated.yml
-            rm $plans
-            rm $planjsons
+      run: |
+        infracost breakdown --path="${{inputs.directory}}" \
+                            --show-skipped \
+                            --usage-file infracost-usage.yml
 
 
     # - name: Generate Infracost cost estimate baseline
@@ -119,9 +94,9 @@ runs:
                                     --behavior=update
 
 
-    - name: Annotate
-      uses: Attest/annotations-action@v1.0.7
-      with:
-        token: ${{ inputs.github-token }}
-        path: '/tmp/infracost-base.json'
-        title: 'Annotate Files'
+    # - name: Annotate
+    #   uses: Attest/annotations-action@v1.0.7
+    #   with:
+    #     token: ${{ inputs.github-token }}
+    #     path: '/tmp/infracost-base.json'
+    #     title: 'Annotate Files'
