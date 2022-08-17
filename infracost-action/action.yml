@@ -120,7 +120,7 @@ runs:
 
 
     - name: Annotate
-      uses: Attest/annotations-action@v0.1.0
+      uses: Attest/annotations-action@v1.0.7
       with:
         token: ${{ inputs.github-token }}
         input: '/tmp/infracost-base.json'
