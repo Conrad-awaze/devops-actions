@@ -1,3 +1,10 @@
+## [1.0.18](https://github.com/awazevr/devops-actions/compare/v1.0.17...v1.0.18) (2022-08-17)
+
+
+### Bug Fixes
+
+* removed annotation ([00ab6f4](https://github.com/awazevr/devops-actions/commit/00ab6f482b0d081aaf07f4c20273f29d6f68ab38))
+
 ## [1.0.17](https://github.com/awazevr/devops-actions/compare/v1.0.16...v1.0.17) (2022-08-17)
 
 
