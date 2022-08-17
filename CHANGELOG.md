@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/awazevr/devops-actions/compare/v1.0.7...v1.0.8) (2022-08-17)
+
+
+### Bug Fixes
+
+* added annotation step in infracost ([4c54c7f](https://github.com/awazevr/devops-actions/commit/4c54c7fd60379247a5ac3e02e6923a9a9915d9aa))
+
 ## [1.0.7](https://github.com/awazevr/devops-actions/compare/v1.0.6...v1.0.7) (2022-08-17)
 
 
