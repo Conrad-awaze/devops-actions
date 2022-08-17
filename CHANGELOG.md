@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/awazevr/devops-actions/compare/v1.0.5...v1.0.6) (2022-08-17)
+
+
+### Bug Fixes
+
+* added infracost action ([e030249](https://github.com/awazevr/devops-actions/commit/e030249246215ff81f53ef3806149db8853fe977))
+
 ## [1.0.5](https://github.com/awazevr/devops-actions/compare/v1.0.4...v1.0.5) (2022-08-11)
 
 
