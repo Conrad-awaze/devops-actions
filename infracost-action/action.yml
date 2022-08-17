@@ -64,6 +64,7 @@ runs:
       shell: bash
       run: |
         infracost breakdown --path="${{inputs.directory}}" \
+                            --show-skipped \
                             --format=json \
                             --usage-file infracost-usage.yml \
                             --out-file=/tmp/infracost-base.json
@@ -89,7 +90,7 @@ runs:
       shell: bash
       run: |
           ls /tmp/
-          infracost comment github --path=/tmp/infracost-base.json \
+          infracost comment github --path=/tmp/infracost.json \
                                     --repo=$GITHUB_REPOSITORY \
                                     --github-token=${{inputs.github-token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
