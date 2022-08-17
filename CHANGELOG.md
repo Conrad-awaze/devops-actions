@@ -1,3 +1,10 @@
+## [1.0.14](https://github.com/awazevr/devops-actions/compare/v1.0.13...v1.0.14) (2022-08-17)
+
+
+### Bug Fixes
+
+* updated infracost generating step ([6698c28](https://github.com/awazevr/devops-actions/commit/6698c28fcb19496268920e0af5c7a95faf2baf20))
+
 ## [1.0.13](https://github.com/awazevr/devops-actions/compare/v1.0.12...v1.0.13) (2022-08-17)
 
 
