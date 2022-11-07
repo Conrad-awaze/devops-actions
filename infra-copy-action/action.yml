@@ -8,8 +8,8 @@ inputs:
   aws-region: 
     description: Input for which aws region we are working with
     required: true
-  exclude-directories:
-    description: List of excluded 
+  # exclude-directories:
+  #   description: List of excluded 
 
 outputs:
   script:
@@ -39,15 +39,15 @@ runs:
                 echo "Directory does not exist"
               fi
 
-    - name: Excluding directories
-      shell: bash
-      run: |
-              if [ -d ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}/${{exclude-directories}} ]
-              then
-                echo "directory found!"
-              else
-                echo "Directory does not exist"
-              fi
+    # - name: Excluding directories
+    #   shell: bash
+    #   run: |
+    #           if [ -d ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}/${{exclude-directories}} ]
+    #           then
+    #             echo "directory found!"
+    #           else
+    #             echo "Directory does not exist"
+    #           fi
 
     - name: install tree
       shell: bash
