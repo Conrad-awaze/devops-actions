@@ -94,9 +94,9 @@ runs:
                                     --github-token=${{inputs.github-token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
                                     --behavior=update
-    - name: Annotate
-      uses: Attest/annotations-action@v1.0.7
-      with:
-        secret: "${{ inputs.github-token}}"
-        path: './infracost.json'
-        title: 'Infracost Annotate'
+    # - name: Annotate
+    #   uses: Attest/annotations-action@v1.0.7
+    #   with:
+    #     secret: "${{ inputs.github-token}}"
+    #     path: './infracost.json'
+    #     title: 'Infracost Annotate'
