@@ -1,3 +1,10 @@
+## [1.0.25](https://github.com/awazevr/devops-actions/compare/v1.0.24...v1.0.25) (2022-11-07)
+
+
+### Bug Fixes
+
+* updated infracost workflow ([eda8866](https://github.com/awazevr/devops-actions/commit/eda88667024f1fcdcbe567dff2d01c0b5b8d63b4))
+
 ## [1.0.24](https://github.com/awazevr/devops-actions/compare/v1.0.23...v1.0.24) (2022-11-07)
 
 
