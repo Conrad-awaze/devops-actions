@@ -97,7 +97,7 @@ runs:
     
     - name: 
       shell: bash
-      run: echo ''### Infracost! :moneybag:' >> $GITHUB_STEP_SUMMARY
+      run: echo '### Infracost! :moneybag:' >> $GITHUB_STEP_SUMMARY
     # - name: Annotate
     #   uses: Attest/annotations-action@v1.0.7
     #   with:
