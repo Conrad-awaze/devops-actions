@@ -1,3 +1,10 @@
+## [1.0.33](https://github.com/awazevr/devops-actions/compare/v1.0.32...v1.0.33) (2022-11-07)
+
+
+### Bug Fixes
+
+* testing echo out to github summary ([06d1696](https://github.com/awazevr/devops-actions/commit/06d169661a5eb5234ae9a295d228851505ea1c25))
+
 ## [1.0.32](https://github.com/awazevr/devops-actions/compare/v1.0.31...v1.0.32) (2022-11-07)
 
 
