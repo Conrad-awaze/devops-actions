@@ -83,13 +83,13 @@ runs:
                         --format=json \
                         --usage-file infracost-usage.yml \
                         --compare-to=/tmp/infracost-base.json \
-                        --out-file=/tmp/infracost.json
+                        --out-file=infracost.json
 
     - name: Post Infracost comment
       shell: bash
       run: |
           ls /tmp/
-          infracost comment github --path=/tmp/infracost.json \
+          infracost comment github --path=infracost.json \
                                     --repo=$GITHUB_REPOSITORY \
                                     --github-token=${{inputs.github-token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
@@ -97,7 +97,6 @@ runs:
 
 
     - name: Annotate Code Linting Results
-      working-directory: ./tmp
       uses: ataylorme/eslint-annotate-action@v2
       with:
         repo-token: "${{ inputs.github-token}}"
