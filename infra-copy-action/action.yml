@@ -6,8 +6,10 @@ inputs:
     description: Input for which environment we are working with
     required: true
   aws-region: 
-      description: Input for which aws region we are working with
-      required: true
+    description: Input for which aws region we are working with
+    required: true
+  exclude-directories:
+    description: List of excluded 
 
 outputs:
   script:
@@ -33,6 +35,16 @@ runs:
               if [ -d '00 - development' ]
               then
                 cp -r '00 - development/.' ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}
+              else
+                echo "Directory does not exist"
+              fi
+
+    - name: Excluding directories
+      shell: bash
+      run: |
+              if [ -d ${{inputs.environment}}/${{inputs.aws-region}}/${{inputs.environment}}/${{exclude-directories}} ]
+              then
+                echo "directory found!"
               else
                 echo "Directory does not exist"
               fi

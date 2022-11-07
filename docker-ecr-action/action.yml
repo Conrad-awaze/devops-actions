@@ -76,7 +76,6 @@ runs:
         push: true
         tags: ${{ steps.docker-meta-non-mutable.outputs.tags }}
 
-
     - name: Docker meta
       if: ${{ inputs.mutable-ecr == true }} 
       id: docker-meta-mutable
