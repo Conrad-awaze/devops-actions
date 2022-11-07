@@ -95,16 +95,9 @@ runs:
                                     --pull-request=${{github.event.pull_request.number}} \
                                     --behavior=update
 
-
-    - name: Annotate Code Linting Results
-      uses: ataylorme/eslint-annotate-action@v2
+    - name: Annotate
+      uses: yuzutech/annotations-action@v0.4.0
       with:
         repo-token: "${{ inputs.github-token}}"
-        report-json: "infracost.json"
-
-    # - name: Annotate
-    #   uses: yuzutech/annotations-action@v0.4.0
-    #   with:
-    #     repo-token: "${{inputs.github-token}}"
-    #     title: 'Infracost'
-    #     input: '/tmp/infracost.json'
+        title: 'lint'
+        input: './infracost.json'
