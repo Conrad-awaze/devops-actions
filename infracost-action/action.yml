@@ -94,6 +94,10 @@ runs:
                                     --github-token=${{inputs.github-token}} \
                                     --pull-request=${{github.event.pull_request.number}} \
                                     --behavior=update
+    
+    - name: 
+      shell: bash
+      run: echo ''### Infracost! :moneybag:' >> $GITHUB_STEP_SUMMARY
     # - name: Annotate
     #   uses: Attest/annotations-action@v1.0.7
     #   with:
