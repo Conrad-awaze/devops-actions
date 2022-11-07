@@ -1,3 +1,12 @@
+## [1.0.22](https://github.com/awazevr/devops-actions/compare/v1.0.21...v1.0.22) (2022-11-07)
+
+
+### Bug Fixes
+
+* added codeql.yml for code scanning tests ([597053f](https://github.com/awazevr/devops-actions/commit/597053fe3818fa7174cc2f3100ff9109992e9950))
+* added languages to scan for ([ff5d18e](https://github.com/awazevr/devops-actions/commit/ff5d18e137ef99dd2e4f88544d43e23557dbc6a9))
+* updated workflows ([9ecf737](https://github.com/awazevr/devops-actions/commit/9ecf7373ac55a6cbe34d3acaaea75f0eb95ac8f5))
+
 ## [1.0.21](https://github.com/awazevr/devops-actions/compare/v1.0.20...v1.0.21) (2022-08-17)
 
 
