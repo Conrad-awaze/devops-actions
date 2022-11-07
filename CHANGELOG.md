@@ -1,3 +1,10 @@
+## [1.0.27](https://github.com/awazevr/devops-actions/compare/v1.0.26...v1.0.27) (2022-11-07)
+
+
+### Bug Fixes
+
+* updated infra-copy-action ([854e7d4](https://github.com/awazevr/devops-actions/commit/854e7d4423b214082899f96ce02bbaea48593ac5))
+
 ## [1.0.26](https://github.com/awazevr/devops-actions/compare/v1.0.25...v1.0.26) (2022-11-07)
 
 
