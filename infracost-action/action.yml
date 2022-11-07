@@ -97,6 +97,6 @@ runs:
     - name: Annotate
       uses: Attest/annotations-action@v1.0.7
       with:
-        token: "${{ inputs.github-token}}"
-        input: './infracost.json'
+        secret: "${{ inputs.github-token}}"
+        path: './infracost.json'
         title: 'Infracost Annotate'
