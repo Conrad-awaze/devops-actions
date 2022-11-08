@@ -1,0 +1,57 @@
+name: Dev Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      aws-region:
+        required: true
+      aws-account:
+        reguired: true
+      token: 
+        reguired: true
+
+env:
+  TERRAFORM_VERSION: 1.1.7
+
+jobs:
+  terragrunt:
+    name: 'Deploying infra to dev'
+    environment: dev
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      security-events: write
+      pull-requests: write
+      actions: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setting up File Structure
+        uses: awazevr/devops-actions/infra-copy-action@main
+        with:
+          environment: ${{ inputs.environment }}
+          aws-region: ${{ secrets.aws-region }}
+
+      - name: Setting up AWS and Terraform
+        uses: awazevr/devops-actions/aws-terragrunt-setup-action@main
+        with:
+          aws-region: ${{ secrets.aws-region }}
+          aws-account-id: ${{ secrets.aws-account }} 
+          ssh-key-shared-modules: ${{ secrets.TERRAFORM_SHARED_MODULES }}
+          gh-pat: ${{ secrets.token}}
+
+      - name: Security analysis AWS and Terraform
+        uses: awazevr/devops-actions/security-analysis-action@main
+        with:
+          gh-pat: ${{ secrets.token}}
+
+      - name: Apply Terragrunt
+        working-directory: "${{ inputs.environment }}/${{ secrets.aws-region }}/${{ inputs.environment }}"
+        run: terragrunt run-all apply --terragrunt-non-interactive
