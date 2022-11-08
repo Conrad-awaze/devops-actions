@@ -31,21 +31,21 @@ jobs:
         uses: awazevr/devops-actions/infra-copy-action@main
         with:
           environment: ${{ inputs.environment }}
-          aws-region: ${{ secrets.aws-region }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setting up AWS and Terraform
         uses: awazevr/devops-actions/aws-terragrunt-setup-action@main
         with:
-          aws-region: ${{ secrets.aws-region }}
-          aws-account-id: ${{ secrets.aws-account }} 
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }} 
           ssh-key-shared-modules: ${{ secrets.TERRAFORM_SHARED_MODULES }}
-          gh-pat: ${{ secrets.token}}
+          gh-pat: ${{ github.token}}
 
       - name: Security analysis AWS and Terraform
         uses: awazevr/devops-actions/security-analysis-action@main
         with:
-          gh-pat: ${{ secrets.token}}
+          gh-pat: ${{ github.token}}
 
       - name: Apply Terragrunt
-        working-directory: "${{ inputs.environment }}/${{ secrets.aws-region }}/${{ inputs.environment }}"
+        working-directory: "${{ inputs.environment }}/${{ secrets.AWS_REGION }}/${{ inputs.environment }}"
         run: terragrunt run-all apply --terragrunt-non-interactive
