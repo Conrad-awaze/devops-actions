@@ -10,9 +10,9 @@ on:
       aws-region:
         required: true
       aws-account:
-        reguired: true
+        required: true
       token: 
-        reguired: true
+        required: true
 
 env:
   TERRAFORM_VERSION: 1.1.7
