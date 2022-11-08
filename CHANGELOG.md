@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/awazevr/devops-actions/compare/v1.0.34...v1.1.0) (2022-11-08)
+
+
+### Features
+
+* added reusable workflow for semantic release ([d98ce7e](https://github.com/awazevr/devops-actions/commit/d98ce7e8d2820ede544e7e761513058aef6d04b4))
+
 ## [1.0.34](https://github.com/awazevr/devops-actions/compare/v1.0.33...v1.0.34) (2022-11-07)
 
 
