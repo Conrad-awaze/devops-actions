@@ -6,13 +6,6 @@ on:
       environment:
         required: true
         type: string
-    secrets:
-      aws-region:
-        required: true
-      aws-account:
-        required: true
-      token: 
-        required: true
 
 env:
   TERRAFORM_VERSION: 1.1.7
