@@ -1,0 +1,63 @@
+name: Pipeline Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environments:
+        required: true
+        type: string
+    secrets:
+      aws-region:
+        required: true
+      aws-account:
+        required: true
+      token: 
+        required: true
+
+env:
+  TERRAFORM_VERSION: 1.1.7
+
+jobs:
+  pipeline:
+    name: 'Deploying infrastructure'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ inputs.environments }}
+        stage: 
+      fail-fast: true
+      max-parallel: 1
+    permissions:
+      id-token: write
+      contents: write
+      security-events: write
+      pull-requests: write
+      actions: read
+    environment:
+      name: ${{ matrix.stage }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setting up File Structure
+        uses: awazevr/devops-actions/infra-copy-action@main
+        with:
+          environment: ${{ matrix.stage }}
+          aws-region: ${{ secrets.aws-region }}
+
+      - name: Setting up AWS and Terraform
+        uses: awazevr/devops-actions/aws-terragrunt-setup-action@main
+        with:
+          aws-region: ${{ secrets.aws-region }}
+          aws-account-id: ${{ secrets.aws-account }} 
+          ssh-key-shared-modules: ${{ secrets.TERRAFORM_SHARED_MODULES }}
+          gh-pat: ${{ secrets.token}}
+
+      - name: Security analysis AWS and Terraform
+        uses: awazevr/devops-actions/security-analysis-action@main
+        with:
+          gh-pat: ${{ secrets.token}}
+
+      - name: Apply Terragrunt
+        working-directory: "${{ matrix.stage }}/${{ secrets.aws-region }}/${{ matrix.stage }}"
+        run: terragrunt run-all apply --terragrunt-non-interactive
