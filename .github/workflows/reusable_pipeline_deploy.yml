@@ -3,7 +3,7 @@ name: Pipeline Deploy
 on:
   workflow_call:
     inputs:
-      environments:
+      environment:
         required: true
         type: string
     secrets:
@@ -19,13 +19,8 @@ env:
 
 jobs:
   pipeline:
-    name: 'Deploying infrastructure'
+    name: 'Deploying infra to ${{ inputs.environment }}'
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ inputs.environments }}
-        stage: 
-      fail-fast: true
-      max-parallel: 1
     permissions:
       id-token: write
       contents: write
@@ -33,7 +28,7 @@ jobs:
       pull-requests: write
       actions: read
     environment:
-      name: ${{ matrix.stage }}
+      name: ${{ inputs.environment }}
 
     steps:
       - name: Checkout
@@ -42,7 +37,7 @@ jobs:
       - name: Setting up File Structure
         uses: awazevr/devops-actions/infra-copy-action@main
         with:
-          environment: ${{ matrix.stage }}
+          environment: ${{ inputs.environment }}
           aws-region: ${{ secrets.aws-region }}
 
       - name: Setting up AWS and Terraform
@@ -59,5 +54,5 @@ jobs:
           gh-pat: ${{ secrets.token}}
 
       - name: Apply Terragrunt
-        working-directory: "${{ matrix.stage }}/${{ secrets.aws-region }}/${{ matrix.stage }}"
+        working-directory: "${{ inputs.environment }}/${{ secrets.aws-region }}/${{ inputs.environment }}"
         run: terragrunt run-all apply --terragrunt-non-interactive
