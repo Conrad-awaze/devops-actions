@@ -6,10 +6,10 @@ on:
       environment:
         required: true
         type: string
-      environment:
+      url:
         required: false
         type: string
-        default: 'https://github.com/awazevr/devops-actions'
+        default: https://github.com/awazevr/devops-actions
     secrets: 
       aws-region:
         required: false
