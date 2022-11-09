@@ -1,0 +1,36 @@
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
+
+jobs:
+  release:
+    name: 'Create release'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      security-events: write
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@master
+        with:
+          token: ${{ secrets.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.3.0'
+
+      - name: Install dependencies
+        working-directory: .
+        run: npm install
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+        run: npx semantic-release

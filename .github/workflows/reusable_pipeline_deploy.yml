@@ -6,6 +6,15 @@ on:
       environment:
         required: true
         type: string
+      environment:
+        required: false
+        type: string
+        default: 'https://github.com/awazevr/devops-actions'
+    secrets: 
+      aws-region:
+        required: false
+      aws-account:
+        required: false
 
 env:
   TERRAFORM_VERSION: 1.1.7
@@ -22,6 +31,7 @@ jobs:
       actions: read
     environment:
       name: ${{ inputs.environment }}
+      url: ${{ inputs.url }}
 
     steps:
       - name: Checkout
