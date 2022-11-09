@@ -43,27 +43,16 @@ runs:
   using: "composite" 
 
   steps: 
-      
-    - name: Starting Action
-      shell: bash
-      run: echo "Starting composite action"
-    
-    # # needs chmod +x for scripts
-    # - name: bash script
-    #   shell: bash
-    #   run: bash/setup.sh
-    #   id: setup-script
-
     - name: Configure AWS credentials
       if: ${{inputs.use_access_key}}
-      uses: aws-actions/configure-aws-credentials@master
+      uses: aws-actions/configure-aws-credentials@v1.7.0
       with:
         aws-region: ${{ inputs.aws-region }}
         role-to-assume: arn:aws:iam::${{ inputs.aws-account-id }}:role/github
 
     - name: Configure AWS Credentials
       if: ${{inputs.use_access_key}}
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v1.7.0
       with:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
@@ -88,7 +77,7 @@ runs:
         terraform_wrapper: false
 
     - name: Setup Terragrunt
-      uses: autero1/action-terragrunt@v1.1.0
+      uses: autero1/action-terragrunt@v2.0.3
       with:
         terragrunt_version: ${{ inputs.terragrunt-version }}
 
