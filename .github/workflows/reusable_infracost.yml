@@ -1,0 +1,42 @@
+name: Infracost Analysis
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets: 
+      aws-region:
+        required: false
+      aws-account:
+        required: false
+
+env:
+  TERRAFORM_VERSION: 1.1.7
+
+jobs:
+  infracost:
+    name: 'Infracost in ${{ inputs.environment }}'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      security-events: write
+      pull-requests: write
+      actions: read
+    environment:
+      name: ${{ inputs.environment }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Infracost
+        uses: awazevr/devops-actions/infracost-action@main
+        with:
+          directory: ${{ inputs.environment }}/${{ secrets.AWS_REGION }}/${{ inputs.environment }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          ssh-key-shared-modules: ${{ secrets.TERRAFORM_SHARED_MODULES }}
+          infracost_creds: ${{ secrets.INFRACOST_KEY }}
+          github-token:  ${{ github.token}}
