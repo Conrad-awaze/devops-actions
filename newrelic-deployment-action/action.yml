@@ -1,0 +1,32 @@
+name: Docker Build and Push
+description:  Composite action for setting up Docker Buildx, Docker meta, ECR login and Build Push 
+
+
+inputs:
+  newrelic-api-key: 
+    description: New Relic API Key
+    required: true
+  newrelic-account-id:
+    description: New Relic Account ID
+    required: true
+  newrelic-application:
+    description: New Relic Application Name
+    required: true
+  release-version:
+    description: Deployment Release Version
+    required: true
+
+
+runs: 
+  using: "composite"
+  steps: 
+
+    - name: Create New Relic deployment marker
+      uses: newrelic/deployment-marker-action@v1
+      with:
+        apiKey: ${{ inputs.newrelic-api-key }}
+        accountId: ${{ inputs.newrelic-account-id }}
+        applicationId: ${{ inputs.newrelic-application }}
+        revision: "${{ inputs.release-version }}"
+
+
